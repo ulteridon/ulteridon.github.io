@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Tattvam Technologies">
-<meta property="og:description" content="Small Android apps that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
+<meta property="og:description" content="Small apps for Android and iPhone that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ulteridon.github.io/">
 <meta property="og:image" content="https://ulteridon.github.io/img/clock-icon.png">
 <link rel="icon" type="image/png" href="img/clock-icon.png">
 <title>Tattvam Technologies</title>
-<meta name="description" content="Tattvam Technologies makes small Android apps that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
+<meta name="description" content="Tattvam Technologies makes small Android and iPhone apps that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -111,6 +111,7 @@ a:focus-visible, .shot-strip:focus-visible { outline: 2px solid var(--accent); o
   transition: transform .15s ease;
 }
 .play:hover { transform: translateY(-1px); }
+.play.alt { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
 .play svg { width: 16px; height: 16px; flex: none; }
 .pkg { color: var(--muted); overflow-wrap: anywhere; }
 
@@ -196,7 +197,7 @@ footer a { color: var(--ink); }
 
 <main>
 <section class="wrap hero" aria-labelledby="hero-title">
-  <h1 id="hero-title">Small Android apps that each do one job well.</h1>
+  <h1 id="hero-title">Small apps that each do one job well.</h1>
   <p>A talking clock, a swipe-to-clean gallery tool, an offline Bible, a naam jap counter and a festival poster maker. No sign-up walls, and most of them work without an internet connection.</p>
   <div class="dock" role="list" aria-label="Our apps">
     <a role="listitem" href="#talking-clock"><img src="img/clock-icon.png" alt="" width="84" height="84"><span>Talking Clock</span></a>
@@ -218,7 +219,7 @@ footer a { color: var(--ink); }
     <div class="app-copy">
       <div class="app-head">
         <img src="img/clock-icon.png" alt="Talking Clock icon" width="68" height="68">
-        <div><h2>Talking Clock</h2><span class="cat mono">Tools · Hourly chime</span></div>
+        <div><h2>Talking Clock</h2><span class="cat mono">Tools · Android and iPhone</span></div>
       </div>
       <p class="lead">Hear the time out loud, so you can keep track of your day without looking at your phone.</p>
       <ul class="features">
@@ -233,6 +234,7 @@ footer a { color: var(--ink); }
       </dl>
       <div class="cta">
         <a class="play" href="https://play.google.com/store/apps/details?id=com.ulteridon.saytime"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <a class="play alt" href="https://apps.apple.com/app/id6762447054"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="currentColor" d="M10 18h4v1.5h-4z"/></svg>Download on the App Store</a>
         <span class="pkg mono">com.ulteridon.saytime · v1.3.3</span>
       </div>
     </div>
@@ -408,7 +410,7 @@ footer a { color: var(--ink); }
 
 <footer>
   <div class="wrap">
-    <span>Tattvam Technologies · Android apps on <a href="https://play.google.com/store/apps/developer?id=Ulteritude">Google Play</a></span>
+    <span>Tattvam Technologies · Apps on <a href="https://play.google.com/store/apps/developer?id=Ulteritude">Google Play</a> and the <a href="https://apps.apple.com/app/id6762447054">App Store</a></span>
     <span class="mono">Store figures as of 7 Nov 2026</span>
   </div>
 </footer>
