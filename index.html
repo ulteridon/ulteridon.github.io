@@ -1,65 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanSwipe - Photo Cleaner for Android</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            text-align: center;
-            background-color: #f8f9fa;
-        }
-        .container {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        h1 {
-            color: #2d3436;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #636e72;
-            margin-bottom: 2rem;
-        }
-        .btn {
-            display: inline-block;
-            background: #0984e3;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.2s;
-        }
-        .btn:hover {
-            background: #074b83;
-            transform: translateY(-2px);
-        }
-        .footer {
-            margin-top: 3rem;
-            font-size: 0.9rem;
-            color: #b2bec3;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Ulteritude Apps">
+<meta property="og:description" content="Small Android apps that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ulteridon.github.io/">
+<meta property="og:image" content="https://ulteridon.github.io/img/clock-icon.png">
+<link rel="icon" type="image/png" href="img/clock-icon.png">
+<title>Ulteritude Apps</title>
+<meta name="description" content="Ulteritude makes small Android apps that each do one job well: Talking Clock, Swipy, First Light Bible, Prem Mala and Patra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a phone home-screen row of the five icons opens the page; below it, one wide band per app,
+   copy on the left and a scrolling strip of real store screenshots on the right, tinted by each app's own icon colour. */
+:root {
+  --bg: #f3f4f7;
+  --surface: #ffffff;
+  --ink: #151821;
+  --muted: #5a6072;
+  --line: #dfe2ea;
+  --accent: #3b3fd8;
+  --display: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --tint: 9%;
+  --shadow: 0 1px 2px rgb(20 24 40 / .06), 0 8px 24px rgb(20 24 40 / .08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1117; --surface: #171a23; --ink: #e8eaf1; --muted: #9aa0b3; --line: #262a37;
+    --accent: #8e91ff; --tint: 16%; --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px rgb(0 0 0 / .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1117; --surface: #171a23; --ink: #e8eaf1; --muted: #9aa0b3; --line: #262a37;
+  --accent: #8e91ff; --tint: 16%; --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px rgb(0 0 0 / .35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.55;
+}
+.wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.08; }
+a { color: inherit; }
+a:focus-visible, .shot-strip:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.mono { font-family: var(--mono); font-size: 13px; letter-spacing: .01em; }
+
+/* Header */
+.top { padding-block: 28px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -.01em; text-decoration: none; }
+.top nav { display: flex; gap: 18px; font-size: 15px; color: var(--muted); }
+.top nav a { text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero { padding-block: 56px 40px; display: grid; gap: 28px; }
+.hero h1 { font-size: clamp(38px, 6.4vw, 76px); font-weight: 800; letter-spacing: -.035em; max-width: 15ch; }
+.hero p { margin: 0; max-width: 58ch; font-size: 19px; color: var(--muted); }
+.dock {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 22px 18px 16px;
+  box-shadow: var(--shadow); max-width: 640px;
+}
+.dock a { display: grid; justify-items: center; gap: 8px; text-decoration: none; min-width: 0; }
+.dock img { width: 100%; max-width: 84px; aspect-ratio: 1; border-radius: 24%; display: block; transition: transform .2s ease; }
+.dock a:hover img { transform: translateY(-4px); }
+.dock span { font-size: 13px; color: var(--muted); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 4px 0 0; padding: 0; list-style: none; }
+.stats li { display: grid; }
+.stats b { font-family: var(--display); font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.stats span { font-size: 14px; color: var(--muted); }
+
+/* App bands */
+.apps { display: grid; gap: 22px; padding-block: 24px 72px; }
+.app {
+  --tintbg: color-mix(in oklab, var(--app) var(--tint), var(--surface));
+  background: var(--tintbg); border: 1px solid color-mix(in oklab, var(--app) 22%, var(--line));
+  border-radius: 28px; padding: 30px;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: center;
+  scroll-margin-top: 20px;
+}
+.app-copy { display: grid; gap: 16px; min-width: 0; }
+.app-head { display: flex; gap: 16px; align-items: center; }
+.app-head img { width: 68px; height: 68px; border-radius: 24%; flex: none; box-shadow: var(--shadow); }
+.app-head h2 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 700; letter-spacing: -.02em; }
+.app-head .cat { color: var(--muted); margin-top: 4px; display: block; }
+.lead { margin: 0; font-size: 18px; }
+.features { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.features li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.features li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--app); transform: translateY(-1px); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: color-mix(in oklab, var(--app) 18%, var(--line)); border-radius: 14px; overflow: hidden; margin: 4px 0 0; }
+.facts div { background: var(--surface); padding: 10px 12px; min-width: 0; }
+.facts dt { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-family: var(--display); font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.play {
+  display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: 999px;
+  background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 600; font-size: 15px;
+  transition: transform .15s ease;
+}
+.play:hover { transform: translateY(-1px); }
+.play svg { width: 16px; height: 16px; flex: none; }
+.pkg { color: var(--muted); overflow-wrap: anywhere; }
+
+.shot-strip {
+  display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 14px; min-width: 0;
+  scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--app) 40%, transparent) transparent;
+}
+.shot-strip img {
+  height: 380px; width: auto; max-width: none; flex: none; border-radius: 18px; scroll-snap-align: start;
+  box-shadow: var(--shadow); background: var(--surface);
+}
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 28px 40px; display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; color: var(--muted); font-size: 15px; }
+footer a { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: minmax(0, 1fr); padding: 22px; gap: 22px; }
+  .shot-strip img { height: 320px; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 36px 28px; }
+  .dock { padding: 16px 10px 12px; gap: 6px; border-radius: 22px; }
+  .dock span { font-size: 11.5px; }
+  .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .facts dd { font-size: 16px; }
+  .app { padding: 18px; border-radius: 22px; }
+  .app-head img { width: 56px; height: 56px; }
+  .shot-strip img { height: 280px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} img{max-width:100%}</style>
 </head>
 <body>
-    <div class="container">
-        <h1>CleanSwipe</h1>
-        <p>The fastest and most efficient way to clean up your Android photo gallery. Swipe, review, and reclaim your storage space.</p>
-        <a href="https://play.google.com/store/apps/details?id=com.cleanswipe.app" class="btn">View on Google Play</a>
+<header class="wrap top">
+  <a class="brand" href="#top" id="top">Ulteritude</a>
+  <nav aria-label="Apps">
+    <a href="#apps">Apps</a>
+    <a href="https://play.google.com/store/apps/developer?id=Ulteritude">Google Play</a>
+  </nav>
+</header>
+
+<main>
+<section class="wrap hero" aria-labelledby="hero-title">
+  <h1 id="hero-title">Small Android apps that each do one job well.</h1>
+  <p>A talking clock, a swipe-to-clean gallery tool, an offline Bible, a naam jap counter and a festival poster maker. No sign-up walls, and most of them work without an internet connection.</p>
+  <div class="dock" role="list" aria-label="Our apps">
+    <a role="listitem" href="#talking-clock"><img src="img/clock-icon.png" alt="" width="84" height="84"><span>Talking Clock</span></a>
+    <a role="listitem" href="#swipy"><img src="img/swipy-icon.png" alt="" width="84" height="84"><span>Swipy</span></a>
+    <a role="listitem" href="#first-light-bible"><img src="img/bible-icon.png" alt="" width="84" height="84"><span>First Light</span></a>
+    <a role="listitem" href="#prem-mala"><img src="img/premmala-icon.png" alt="" width="84" height="84"><span>Prem Mala</span></a>
+    <a role="listitem" href="#patra"><img src="img/patra-icon.png" alt="" width="84" height="84"><span>Patra</span></a>
+  </div>
+  <ul class="stats">
+    <li><b>5</b><span>apps on Google Play</span></li>
+    <li><b>23K+</b><span>installs</span></li>
+    <li><b>4.3★</b><span>Talking Clock, 68 ratings</span></li>
+  </ul>
+</section>
+
+<section class="wrap apps" id="apps" aria-label="Apps">
+
+  <article class="app" id="talking-clock" style="--app:#6d2fd6">
+    <div class="app-copy">
+      <div class="app-head">
+        <img src="img/clock-icon.png" alt="Talking Clock icon" width="68" height="68">
+        <div><h2>Talking Clock</h2><span class="cat mono">Tools · Hourly chime</span></div>
+      </div>
+      <p class="lead">Hear the time out loud, so you can keep track of your day without looking at your phone.</p>
+      <ul class="features">
+        <li>Speaks the time every 1, 5, 10, 15, 30 or 60 minutes, even while you use other apps</li>
+        <li>Analog and digital clock faces, plus home-screen widgets</li>
+        <li>Silent hours for nights and meetings, and 11 languages in the app</li>
+      </ul>
+      <dl class="facts">
+        <div><dt>Installs</dt><dd>20K+</dd></div>
+        <div><dt>Rating</dt><dd>4.3★ (68)</dd></div>
+        <div><dt>Updated</dt><dd>30 Oct 2026</dd></div>
+      </dl>
+      <div class="cta">
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.ulteridon.saytime"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <span class="pkg mono">com.ulteridon.saytime · v1.3.3</span>
+      </div>
     </div>
-    <div class="footer">
-        &copy; 2026 CleanSwipe App. All rights reserved.
+    <div class="shot-strip" tabindex="0" aria-label="Talking Clock screenshots">
+      <img src="img/clock-s0.jpg" alt="Talking Clock: announces the time out loud, hands-free" width="360" height="783" loading="lazy">
+      <img src="img/clock-s1.jpg" alt="Talking Clock: hear the time on your schedule" width="360" height="783" loading="lazy">
+      <img src="img/clock-s2.jpg" alt="Talking Clock: a choice of clock faces" width="360" height="783" loading="lazy">
+      <img src="img/clock-s3.jpg" alt="Talking Clock: routines for your day" width="360" height="783" loading="lazy">
     </div>
+  </article>
+
+  <article class="app" id="swipy" style="--app:#4b4ee8">
+    <div class="app-copy">
+      <div class="app-head">
+        <img src="img/swipy-icon.png" alt="Swipy icon" width="68" height="68">
+        <div><h2>Swipy</h2><span class="cat mono">Tools · Photo cleaner</span></div>
+      </div>
+      <p class="lead">Clean up your gallery one swipe at a time and free up storage on your phone.</p>
+      <ul class="features">
+        <li>Swipe left to delete, swipe right to keep</li>
+        <li>Works on photos, videos and PDFs, by album or month by month</li>
+        <li>Shows everything you marked before anything is deleted</li>
+      </ul>
+      <dl class="facts">
+        <div><dt>Installs</dt><dd>2.6K+</dd></div>
+        <div><dt>Rating</dt><dd>4.0★ (9)</dd></div>
+        <div><dt>Updated</dt><dd>2 Nov 2026</dd></div>
+      </dl>
+      <div class="cta">
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.cleanswipe.app"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <span class="pkg mono">com.cleanswipe.app · v1.1.11</span>
+      </div>
+    </div>
+    <div class="shot-strip" tabindex="0" aria-label="Swipy screenshots">
+      <img src="img/swipy-s0.jpg" alt="Swipy: clearing storage with a storage meter" width="360" height="800" loading="lazy">
+      <img src="img/swipy-s1.jpg" alt="Swipy: swipe right to keep a photo" width="360" height="800" loading="lazy">
+      <img src="img/swipy-s2.jpg" alt="Swipy: swipe left to delete clutter" width="360" height="800" loading="lazy">
+      <img src="img/swipy-s3.jpg" alt="Swipy: session summary after cleaning" width="360" height="800" loading="lazy">
+    </div>
+  </article>
+
+  <article class="app" id="first-light-bible" style="--app:#b8741a">
+    <div class="app-copy">
+      <div class="app-head">
+        <img src="img/bible-icon.png" alt="First Light Bible icon" width="68" height="68">
+        <div><h2>First Light Bible</h2><span class="cat mono">Books &amp; Reference · Offline KJV</span></div>
+      </div>
+      <p class="lead">A calm Bible app that works completely offline, with no account and no ads.</p>
+      <ul class="features">
+        <li>8 public-domain translations, including KJV, Douay-Rheims and KJV with Apocrypha</li>
+        <li>Highlights in five colours, bookmarks and notes beside any verse</li>
+        <li>AI Bible chat, Holy Calendar, quiz and audio</li>
+      </ul>
+      <dl class="facts">
+        <div><dt>Installs</dt><dd>100+</dd></div>
+        <div><dt>Rating</dt><dd>Not yet</dd></div>
+        <div><dt>Updated</dt><dd>28 Oct 2026</dd></div>
+      </dl>
+      <div class="cta">
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.firstlight.bible"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <span class="pkg mono">com.firstlight.bible · v1.3.24</span>
+      </div>
+    </div>
+    <div class="shot-strip" tabindex="0" aria-label="First Light Bible screenshots">
+      <img src="img/bible-s0.jpg" alt="First Light Bible: verse of the day" width="360" height="640" loading="lazy">
+      <img src="img/bible-s1.jpg" alt="First Light Bible: read, save and highlight" width="360" height="640" loading="lazy">
+      <img src="img/bible-s2.jpg" alt="First Light Bible: light and dark reading modes" width="360" height="640" loading="lazy">
+      <img src="img/bible-s3.jpg" alt="First Light Bible: effortless Bible reading" width="360" height="640" loading="lazy">
+    </div>
+  </article>
+
+  <article class="app" id="prem-mala" style="--app:#d4427c">
+    <div class="app-copy">
+      <div class="app-head">
+        <img src="img/premmala-icon.png" alt="Prem Mala icon" width="68" height="68">
+        <div><h2>Prem Mala</h2><span class="cat mono">Lifestyle · Radha Naam jap</span></div>
+      </div>
+      <p class="lead">A Radha Naam player and naam jap counter for daily chanting. Free and fully offline.</p>
+      <ul class="features">
+        <li>Radha Naam player with your own repeat count and gap between repetitions</li>
+        <li>108-bead mala counter with a daily target</li>
+        <li>Streaks, a weekly chart and a soft flute to chant along with</li>
+      </ul>
+      <dl class="facts">
+        <div><dt>Installs</dt><dd>80+</dd></div>
+        <div><dt>Rating</dt><dd>5.0★ (9)</dd></div>
+        <div><dt>Updated</dt><dd>30 Jul 2026</dd></div>
+      </dl>
+      <div class="cta">
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.nitya.manjhari"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <span class="pkg mono">com.nitya.manjhari · v1.2.0</span>
+      </div>
+    </div>
+    <div class="shot-strip" tabindex="0" aria-label="Prem Mala screenshots">
+      <img src="img/premmala-s0.jpg" alt="Prem Mala: one name, infinite grace" width="360" height="640" loading="lazy">
+      <img src="img/premmala-s1.jpg" alt="Prem Mala: streaks and daily progress" width="360" height="640" loading="lazy">
+      <img src="img/premmala-s2.jpg" alt="Prem Mala: choose your theme" width="360" height="640" loading="lazy">
+      <img src="img/premmala-s3.jpg" alt="Prem Mala: set a daily jap target of 108" width="360" height="640" loading="lazy">
+    </div>
+  </article>
+
+  <article class="app" id="patra" style="--app:#5f7232">
+    <div class="app-copy">
+      <div class="app-head">
+        <img src="img/patra-icon.png" alt="Patra icon" width="68" height="68">
+        <div><h2>Patra</h2><span class="cat mono">Art &amp; Design · Festival posters</span></div>
+      </div>
+      <p class="lead">Festival and birthday wishes with your own photo and name already on the poster.</p>
+      <ul class="features">
+        <li>Diwali, Dhanteras and Chhath Puja posters in Hindi and English</li>
+        <li>Birthday and anniversary greetings, with Hindi names written in Devanagari</li>
+        <li>No account and no ads, and your photo stays on your phone</li>
+      </ul>
+      <dl class="facts">
+        <div><dt>Installs</dt><dd>New</dd></div>
+        <div><dt>Rating</dt><dd>Not yet</dd></div>
+        <div><dt>Released</dt><dd>27 Oct 2026</dd></div>
+      </dl>
+      <div class="cta">
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.badhai.mystyle"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 2.5v19l16.5-9.5z"/></svg>Get it on Google Play</a>
+        <span class="pkg mono">com.badhai.mystyle · v1.0.0</span>
+      </div>
+    </div>
+    <div class="shot-strip" tabindex="0" aria-label="Patra screenshots">
+      <img src="img/patra-s0.jpg" alt="Patra: a Diwali poster with the user's photo and name" width="360" height="720" loading="lazy">
+      <img src="img/patra-s1.jpg" alt="Patra: home screen with Diwali posters" width="360" height="720" loading="lazy">
+      <img src="img/patra-s2.jpg" alt="Patra: a Dhanteras poster" width="360" height="720" loading="lazy">
+      <img src="img/patra-s3.jpg" alt="Patra: searching Diwali posters" width="360" height="720" loading="lazy">
+    </div>
+  </article>
+
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Ulteritude · Android apps on <a href="https://play.google.com/store/apps/developer?id=Ulteritude">Google Play</a></span>
+    <span class="mono">Store figures as of 7 Nov 2026</span>
+  </div>
+</footer>
+
 </body>
 </html>
