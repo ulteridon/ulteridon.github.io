@@ -127,6 +127,42 @@ footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-block: 28px 40px; display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; color: var(--muted); font-size: 15px; }
 footer a { color: var(--ink); }
 
+/* Revenue */
+:root { --s-play: #3b3fd8; --s-apple: #c26a0a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --s-play: #7a7df5; --s-apple: #cf7f22; } }
+:root[data-theme="dark"] { --s-play: #7a7df5; --s-apple: #cf7f22; }
+.finance { display: grid; gap: 22px; padding-block: 8px 72px; scroll-margin-top: 20px; }
+.fin-head { display: grid; gap: 8px; }
+.fin-head h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; letter-spacing: -.03em; }
+.fin-head p { margin: 0; max-width: 62ch; color: var(--muted); }
+.fin-stats { margin: 0; }
+.rev-figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px 18px 8px; min-width: 0; }
+.rev-figure figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-weight: 600; margin-bottom: 6px; }
+.legend { display: inline-flex; align-items: center; gap: 6px 8px; font-weight: 400; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
+.legend .sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-left: 8px; }
+.legend .sw:first-child { margin-left: 0; }
+.sw.s-play { background: var(--s-play); } .sw.s-apple { background: var(--s-apple); }
+.chart-scroll { overflow-x: auto; }
+.rev-chart { display: block; width: 100%; min-width: 520px; height: auto; font-family: var(--body); }
+.rev-chart .grid { stroke: var(--line); stroke-width: 1; }
+.rev-chart .yl, .rev-chart .xl { fill: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.rev-chart path.s-play { fill: var(--s-play); } .rev-chart path.s-apple { fill: var(--s-apple); }
+.rev-chart .hit { fill: transparent; }
+.rev-chart .bar:hover .hit, .rev-chart .bar:focus .hit { fill: color-mix(in oklab, var(--ink) 6%, transparent); }
+.rev-chart .bar:focus { outline: none; }
+.fin-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow-x: auto; min-width: 0; }
+.tablewrap table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tablewrap caption, .months summary { text-align: left; font-weight: 600; padding: 14px 16px 6px; }
+.months summary { cursor: pointer; padding-bottom: 14px; }
+.months[open] summary { padding-bottom: 6px; }
+.tablewrap th, .tablewrap td { padding: 9px 16px; border-top: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.tablewrap th { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+.tablewrap td.n, .tablewrap th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); font-size: 13px; }
+.fin-note { margin: 0; color: var(--muted); font-size: 14px; max-width: 80ch; }
+@media (max-width: 900px) { .fin-grid { grid-template-columns: minmax(0, 1fr); } }
+
 @media (max-width: 900px) {
   .app { grid-template-columns: minmax(0, 1fr); padding: 22px; gap: 22px; }
   .shot-strip img { height: 320px; }
@@ -153,6 +189,7 @@ footer a { color: var(--ink); }
   <a class="brand" href="#top" id="top">Ulteritude</a>
   <nav aria-label="Apps">
     <a href="#apps">Apps</a>
+    <a href="#revenue">Revenue</a>
     <a href="https://play.google.com/store/apps/developer?id=Ulteritude">Google Play</a>
   </nav>
 </header>
@@ -328,6 +365,45 @@ footer a { color: var(--ink); }
   </article>
 
 </section>
+
+<!-- FINANCE:START -->
+<section class="wrap finance" id="revenue" aria-labelledby="revenue-title">
+  <div class="fin-head">
+    <h2 id="revenue-title">Revenue</h2>
+    <p>What the apps have earned since the first sale, after Google Play and App Store fees, in Indian rupees.</p>
+  </div>
+  <ul class="stats fin-stats">
+    <li><b>₹63,826</b><span>earned in total since September 2025</span></li>
+    <li><b>₹9,751</b><span>in October 2026</span></li>
+    <li><b>₹11,320</b><span>best month, August 2026</span></li>
+    <li><b>4</b><span>apps with paying users</span></li>
+  </ul>
+  <figure class="rev-figure">
+    <figcaption>
+      <span>Earnings per month</span>
+      <span class="legend"><i class="sw s-play"></i>Google Play <i class="sw s-apple"></i>App Store</span>
+    </figcaption>
+    <div class="chart-scroll"><svg class="rev-chart" viewBox="0 0 720 280" role="img" aria-label="Monthly earnings from September 2025 to October 2026, highest in August 2026 at ₹11,320"><line class="grid" x1="52" x2="712" y1="246.0" y2="246.0"/><text class="yl" x="44" y="250.0" text-anchor="end">₹0</text><line class="grid" x1="52" x2="712" y1="168.7" y2="168.7"/><text class="yl" x="44" y="172.7" text-anchor="end">₹4k</text><line class="grid" x1="52" x2="712" y1="91.3" y2="91.3"/><text class="yl" x="44" y="95.3" text-anchor="end">₹8k</text><line class="grid" x1="52" x2="712" y1="14.0" y2="14.0"/><text class="yl" x="44" y="18.0" text-anchor="end">₹12k</text><g class="bar" tabindex="0" aria-label="September 2025: ₹699 total. Google Play ₹699, App Store ₹0"><title>September 2025: ₹699 total. Google Play ₹699, App Store ₹0</title><rect class="hit" x="52.0" y="14" width="47.1" height="232"/><path class="s-play" d="M60.957142857142856,246V236.48754666666667Q60.957142857142856,232.48754666666667 64.95714285714286,232.48754666666667H86.18571428571428Q90.18571428571428,232.48754666666667 90.18571428571428,236.48754666666667V246Z"/></g><g class="bar" tabindex="0" aria-label="October 2025: ₹527 total. Google Play ₹527, App Store ₹0"><title>October 2025: ₹527 total. Google Play ₹527, App Store ₹0</title><rect class="hit" x="99.1" y="14" width="47.1" height="232"/><path class="s-play" d="M108.1,246V239.81326666666666Q108.1,235.81326666666666 112.1,235.81326666666666H133.32857142857142Q137.32857142857142,235.81326666666666 137.32857142857142,239.81326666666666V246Z"/><text class="xl" x="122.7" y="268" text-anchor="middle">Oct '25</text></g><g class="bar" tabindex="0" aria-label="November 2025: ₹0 total. Google Play ₹0, App Store ₹0"><title>November 2025: ₹0 total. Google Play ₹0, App Store ₹0</title><rect class="hit" x="146.3" y="14" width="47.1" height="232"/></g><g class="bar" tabindex="0" aria-label="December 2025: ₹2,248 total. Google Play ₹2,248, App Store ₹0"><title>December 2025: ₹2,248 total. Google Play ₹2,248, App Store ₹0</title><rect class="hit" x="193.4" y="14" width="47.1" height="232"/><path class="s-play" d="M202.3857142857143,246V206.53054666666665Q202.3857142857143,202.53054666666665 206.3857142857143,202.53054666666665H227.61428571428573Q231.61428571428573,202.53054666666665 231.61428571428573,206.53054666666665V246Z"/><text class="xl" x="217.0" y="268" text-anchor="middle">Dec '25</text></g><g class="bar" tabindex="0" aria-label="January 2026: ₹3,169 total. Google Play ₹3,169, App Store ₹0"><title>January 2026: ₹3,169 total. Google Play ₹3,169, App Store ₹0</title><rect class="hit" x="240.6" y="14" width="47.1" height="232"/><path class="s-play" d="M249.52857142857144,246V188.73382666666666Q249.52857142857144,184.73382666666666 253.52857142857144,184.73382666666666H274.75714285714287Q278.75714285714287,184.73382666666666 278.75714285714287,188.73382666666666V246Z"/></g><g class="bar" tabindex="0" aria-label="February 2026: ₹2,775 total. Google Play ₹2,775, App Store ₹0"><title>February 2026: ₹2,775 total. Google Play ₹2,775, App Store ₹0</title><rect class="hit" x="287.7" y="14" width="47.1" height="232"/><path class="s-play" d="M296.6714285714286,246V196.35947333333334Q296.6714285714286,192.35947333333334 300.6714285714286,192.35947333333334H321.90000000000003Q325.90000000000003,192.35947333333334 325.90000000000003,196.35947333333334V246Z"/><text class="xl" x="311.3" y="268" text-anchor="middle">Feb '26</text></g><g class="bar" tabindex="0" aria-label="March 2026: ₹3,155 total. Google Play ₹3,155, App Store ₹0"><title>March 2026: ₹3,155 total. Google Play ₹3,155, App Store ₹0</title><rect class="hit" x="334.9" y="14" width="47.1" height="232"/><path class="s-play" d="M343.81428571428575,246V188.99734Q343.81428571428575,184.99734 347.81428571428575,184.99734H369.0428571428572Q373.0428571428572,184.99734 373.0428571428572,188.99734V246Z"/></g><g class="bar" tabindex="0" aria-label="April 2026: ₹526 total. Google Play ₹412, App Store ₹114"><title>April 2026: ₹526 total. Google Play ₹412, App Store ₹114</title><rect class="hit" x="382.0" y="14" width="47.1" height="232"/><path class="s-play" d="M390.95714285714286,246V238.03466666666668H420.1857142857143V246Z"/><path class="s-apple" d="M390.95714285714286,236.03466666666668V236.03466666666668Q390.95714285714286,233.83453333333335 393.1572761904762,233.83453333333335H417.985580952381Q420.1857142857143,233.83453333333335 420.1857142857143,236.03466666666668V236.03466666666668Z"/><text class="xl" x="405.6" y="268" text-anchor="middle">Apr '26</text></g><g class="bar" tabindex="0" aria-label="May 2026: ₹6,297 total. Google Play ₹2,881, App Store ₹3,417"><title>May 2026: ₹6,297 total. Google Play ₹2,881, App Store ₹3,417</title><rect class="hit" x="429.1" y="14" width="47.1" height="232"/><path class="s-play" d="M438.1,246V190.30917333333335H467.3285714285715V246Z"/><path class="s-apple" d="M438.1,188.30917333333335V126.25684000000001Q438.1,122.25684000000001 442.1,122.25684000000001H463.3285714285715Q467.3285714285715,122.25684000000001 467.3285714285715,126.25684000000001V188.30917333333335Z"/></g><g class="bar" tabindex="0" aria-label="June 2026: ₹7,001 total. Google Play ₹2,563, App Store ₹4,438"><title>June 2026: ₹7,001 total. Google Play ₹2,563, App Store ₹4,438</title><rect class="hit" x="476.3" y="14" width="47.1" height="232"/><path class="s-play" d="M485.2428571428572,246V196.45156666666668H514.4714285714286V246Z"/><path class="s-apple" d="M485.2428571428572,194.45156666666668V112.65255333333334Q485.2428571428572,108.65255333333334 489.2428571428572,108.65255333333334H510.47142857142865Q514.4714285714286,108.65255333333334 514.4714285714286,112.65255333333334V194.45156666666668Z"/><text class="xl" x="499.9" y="268" text-anchor="middle">Jun '26</text></g><g class="bar" tabindex="0" aria-label="July 2026: ₹9,024 total. Google Play ₹4,332, App Store ₹4,692"><title>July 2026: ₹9,024 total. Google Play ₹4,332, App Store ₹4,692</title><rect class="hit" x="523.4" y="14" width="47.1" height="232"/><path class="s-play" d="M532.3857142857144,246V162.2393H561.6142857142858V246Z"/><path class="s-apple" d="M532.3857142857144,160.2393V73.52846Q532.3857142857144,69.52846 536.3857142857144,69.52846H557.6142857142858Q561.6142857142858,69.52846 561.6142857142858,73.52846V160.2393Z"/></g><g class="bar" tabindex="0" aria-label="August 2026: ₹11,320 total. Google Play ₹5,828, App Store ₹5,492"><title>August 2026: ₹11,320 total. Google Play ₹5,828, App Store ₹5,492</title><rect class="hit" x="570.6" y="14" width="47.1" height="232"/><path class="s-play" d="M579.5285714285715,246V133.32726666666667H608.7571428571429V246Z"/><path class="s-apple" d="M579.5285714285715,131.32726666666667V29.148406666666688Q579.5285714285715,25.148406666666688 583.5285714285715,25.148406666666688H604.7571428571429Q608.7571428571429,25.148406666666688 608.7571428571429,29.148406666666688V131.32726666666667Z"/><text class="xl" x="594.1" y="268" text-anchor="middle">Aug '26</text></g><g class="bar" tabindex="0" aria-label="September 2026: ₹7,334 total. Google Play ₹3,385, App Store ₹3,949"><title>September 2026: ₹7,334 total. Google Play ₹3,385, App Store ₹3,949</title><rect class="hit" x="617.7" y="14" width="47.1" height="232"/><path class="s-play" d="M626.6714285714287,246V180.55686H655.9000000000001V246Z"/><path class="s-apple" d="M626.6714285714287,178.55686V106.21223333333333Q626.6714285714287,102.21223333333333 630.6714285714287,102.21223333333333H651.9000000000001Q655.9000000000001,102.21223333333333 655.9000000000001,106.21223333333333V178.55686Z"/></g><g class="bar" tabindex="0" aria-label="October 2026: ₹9,751 total. Google Play ₹5,326, App Store ₹4,425"><title>October 2026: ₹9,751 total. Google Play ₹5,326, App Store ₹4,425</title><rect class="hit" x="664.9" y="14" width="47.1" height="232"/><path class="s-play" d="M673.8142857142858,246V143.0326H703.0428571428572V246Z"/><path class="s-apple" d="M673.8142857142858,141.0326V59.47737999999998Q673.8142857142858,55.47737999999998 677.8142857142858,55.47737999999998H699.0428571428572Q703.0428571428572,55.47737999999998 703.0428571428572,59.47737999999998V141.0326Z"/><text class="xl" x="688.4" y="268" text-anchor="middle">Oct '26</text></g></svg></div>
+  </figure>
+  <div class="fin-grid">
+    <div class="tablewrap">
+      <table>
+        <caption>By app</caption>
+        <thead><tr><th>App</th><th>Total</th><th>Oct 2026</th><th>First earnings</th></tr></thead>
+        <tbody><tr><td>Talking Clock <span class="muted">(Android and iPhone)</span></td><td class="n">₹60,619</td><td class="n">₹7,246</td><td class="n">Sept 2025</td></tr><tr><td>First Light Bible</td><td class="n">₹1,773</td><td class="n">₹1,773</td><td class="n">Oct 2026</td></tr><tr><td>Swipy</td><td class="n">₹1,434</td><td class="n">₹732</td><td class="n">May 2026</td></tr></tbody>
+      </table>
+    </div>
+    <details class="tablewrap months">
+      <summary>Every month</summary>
+      <table>
+        <thead><tr><th>Month</th><th>Google Play</th><th>App Store</th><th>Total</th></tr></thead>
+        <tbody><tr><td>October 2026</td><td class="n">₹5,326</td><td class="n">₹4,425</td><td class="n">₹9,751</td></tr><tr><td>September 2026</td><td class="n">₹3,385</td><td class="n">₹3,949</td><td class="n">₹7,334</td></tr><tr><td>August 2026</td><td class="n">₹5,828</td><td class="n">₹5,492</td><td class="n">₹11,320</td></tr><tr><td>July 2026</td><td class="n">₹4,332</td><td class="n">₹4,692</td><td class="n">₹9,024</td></tr><tr><td>June 2026</td><td class="n">₹2,563</td><td class="n">₹4,438</td><td class="n">₹7,001</td></tr><tr><td>May 2026</td><td class="n">₹2,881</td><td class="n">₹3,417</td><td class="n">₹6,297</td></tr><tr><td>April 2026</td><td class="n">₹412</td><td class="n">₹114</td><td class="n">₹526</td></tr><tr><td>March 2026</td><td class="n">₹3,155</td><td class="n">—</td><td class="n">₹3,155</td></tr><tr><td>February 2026</td><td class="n">₹2,775</td><td class="n">—</td><td class="n">₹2,775</td></tr><tr><td>January 2026</td><td class="n">₹3,169</td><td class="n">—</td><td class="n">₹3,169</td></tr><tr><td>December 2025</td><td class="n">₹2,248</td><td class="n">—</td><td class="n">₹2,248</td></tr><tr><td>November 2025</td><td class="n">₹0</td><td class="n">—</td><td class="n">₹0</td></tr><tr><td>October 2025</td><td class="n">₹527</td><td class="n">—</td><td class="n">₹527</td></tr><tr><td>September 2025</td><td class="n">₹699</td><td class="n">—</td><td class="n">₹699</td></tr></tbody>
+      </table>
+    </details>
+  </div>
+  <p class="fin-note">Figures come from the Google Play Console earnings reports and App Store Connect payments, before income tax. Swipy's ad revenue is not included yet. Patra made its first sale in November 2026; November 2026 is added once the month closes. Updated 6 Nov 2026.</p>
+</section>
+<!-- FINANCE:END -->
 </main>
 
 <footer>
